@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+
+.max-container{
+    @apply px-5 my-0 mx-auto max-w-lg;
+}
+
+
+@tailwind utilities;
+
