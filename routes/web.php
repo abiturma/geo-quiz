@@ -22,5 +22,4 @@ Route::middleware('auth')->prefix('api')->group(function () {
 
     Route::put('/start','GameController@start')->name('game:start');
 
-
 });

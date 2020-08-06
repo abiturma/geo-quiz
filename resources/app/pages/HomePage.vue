@@ -42,11 +42,29 @@
                         {{region.name}}
                     </label>
                 </div>
-
             </div>
 
+
+            <div class="my-2">
+                <h2 class="font-bold mb-1">Anzahl Fragen</h2>
+                <div class="grid grid-cols-1">
+                    <label>
+                        <input type="radio" v-model="length" :value="10"> 10
+                    </label>
+                    <label>
+                        <input type="radio" v-model="length" :value="25"> 25
+                    </label>
+                    <label>
+                        <input type="radio" v-model="length" :value="50"> 50
+                    </label>
+                </div>
+            </div>
+
+
             <div class="mt-3" v-if="regions.length > 0">
-                <v-button class="w-full flex justify-center" color="green" @click="startGame">Los geht's</v-button>
+                <v-button class="w-full flex justify-center" color="green" @click="startGame" :loading="api.loading">Los
+                    geht's
+                </v-button>
             </div>
         </div>
 
@@ -56,7 +74,7 @@
 
 <script>
     import { mapGetters } from "vuex";
-    import axios from 'axios';
+    import Api from "@/utils/Api";
 
     export default {
 
@@ -64,7 +82,9 @@
 
         data() {
             return {
-                regions: ['Africa', 'Americas', 'Asia', 'Europe']
+                regions: ['Africa', 'Americas', 'Asia', 'Europe'],
+                length: 10,
+                api: new Api()
             }
         },
 
@@ -79,9 +99,11 @@
         methods: {
 
             startGame() {
-                axios.put(route('game:start').url(), {regions: this.regions}).then(() => {
-                    console.log('check');
+
+                this.api.put({name: 'game:start'}, {regions: this.regions, length: this.length}).then(res => {
+                    console.log('res', res)
                 })
+
             }
 
         },

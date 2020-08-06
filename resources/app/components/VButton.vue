@@ -4,7 +4,7 @@
             @click="$emit('click')"
     >
         <div>
-            <slot/>
+            <slot/> <template v-if="loading">...lädt...</template>
         </div>
     </button>
 </template>
@@ -29,6 +29,11 @@
                 },
                 default: 'md'
             },
+
+            loading: {
+                type: Boolean,
+                default: false
+            }
 
         },
 
